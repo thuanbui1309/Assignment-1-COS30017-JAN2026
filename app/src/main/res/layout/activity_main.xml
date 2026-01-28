@@ -37,34 +37,46 @@
             android:textSize="20sp"
             android:textStyle="italic"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/btnSoundToggle"
+            app:layout_constraintBottom_toBottomOf="@+id/btnSoundToggle"/>
 
-        <TextView
-            android:id="@+id/tvStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/status_in_progress"
-            android:textColor="@color/status_active"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvAppTitle" />
+        <!-- Sound Toggle -->
+        <ImageButton
+            android:id="@+id/btnSoundToggle"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_sound_on"
+            android:scaleType="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
 
-        <!-- Score Section -->
+        <!-- Score Section (Centered) -->
         <TextView
             android:id="@+id/tvScoreLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:drawableEnd="@drawable/ic_score_line"
-            android:drawablePadding="8dp"
+            android:layout_marginTop="80dp"
             android:fontFamily="sans-serif-medium"
             android:text="@string/label_score"
             android:textColor="@color/text_secondary"
             android:textSize="14sp"
             android:letterSpacing="0.15"
+            android:drawableEnd="@null"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvStatus" />
+            app:layout_constraintTop_toBottomOf="@id/tvAppTitle" />
+            
+        <View
+            android:id="@+id/dividerScore"
+            android:layout_width="40dp"
+            android:layout_height="1dp"
+            android:background="#90A4AE"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvScoreLabel"/>
 
         <TextView
             android:id="@+id/tvScore"
@@ -73,119 +85,140 @@
             android:fontFamily="sans-serif-black"
             android:text="0"
             android:textColor="@color/text_primary"
-            android:textSize="120sp"
+            android:textSize="140sp"
             android:includeFontPadding="false"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvScoreLabel" />
+            app:layout_constraintTop_toBottomOf="@id/dividerScore" />
 
-        <!-- Element Section -->
-        <TextView
-            android:id="@+id/tvElementLabel"
-            android:layout_width="wrap_content"
+        <!-- Element Section (Aligned to Progress Bar) -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutElementInfo"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/label_element_header"
-            android:textColor="@color/text_secondary"
-            android:textSize="14sp"
-            android:letterSpacing="0.15"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvScore" />
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="@+id/layoutProgress"
+            app:layout_constraintStart_toStartOf="@+id/layoutProgress"
+            app:layout_constraintTop_toBottomOf="@id/tvScore">
 
-        <TextView
-            android:id="@+id/tvElement"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="1 / 10"
-            android:textColor="@color/text_primary"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/tvElementLabel"
-            app:layout_constraintStart_toEndOf="@id/tvElementLabel"
-            app:layout_constraintTop_toTopOf="@id/tvElementLabel" />
+            <TextView
+                android:id="@+id/tvElementLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/label_element_header"
+                android:textColor="#90A4AE"
+                android:textSize="14sp"
+                android:letterSpacing="0.1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <!-- Progress Bar -->
+            <TextView
+                android:id="@+id/tvElement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="1 / 10"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Progress Bar (Centered) -->
         <LinearLayout
             android:id="@+id/layoutProgress"
             android:layout_width="0dp"
-            android:layout_height="8dp"
-            android:layout_marginTop="12dp"
+            android:layout_height="10dp"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvElementLabel"
-            app:layout_constraintWidth_percent="0.7">
+            app:layout_constraintTop_toBottomOf="@id/layoutElementInfo"
+            app:layout_constraintWidth_percent="0.9">
 
             <!-- Basic Zone (1-3) -->
-            <View android:id="@+id/seg1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_basic" android:layout_marginEnd="3dp"/>
-            <View android:id="@+id/seg2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive" android:layout_marginEnd="3dp"/>
-            <View android:id="@+id/seg3" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive" android:layout_marginEnd="3dp"/>
+            <View android:id="@+id/seg1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_basic" android:layout_marginEnd="4dp"/>
+            <View android:id="@+id/seg2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive" android:layout_marginEnd="4dp"/>
+            <View android:id="@+id/seg3" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive" android:layout_marginEnd="4dp"/>
 
             <!-- Intermediate Zone (4-7) -->
-            <View android:id="@+id/seg4" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive" android:layout_marginEnd="3dp"/>
-            <View android:id="@+id/seg5" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive" android:layout_marginEnd="3dp"/>
-            <View android:id="@+id/seg6" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive" android:layout_marginEnd="3dp"/>
-            <View android:id="@+id/seg7" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive" android:layout_marginEnd="3dp"/>
+            <View android:id="@+id/seg4" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive" android:layout_marginEnd="4dp"/>
+            <View android:id="@+id/seg5" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive" android:layout_marginEnd="4dp"/>
+            <View android:id="@+id/seg6" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive" android:layout_marginEnd="4dp"/>
+            <View android:id="@+id/seg7" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive" android:layout_marginEnd="4dp"/>
 
             <!-- Advanced Zone (8-10) -->
-            <View android:id="@+id/seg8" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive" android:layout_marginEnd="3dp"/>
-            <View android:id="@+id/seg9" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive" android:layout_marginEnd="3dp"/>
+            <View android:id="@+id/seg8" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive" android:layout_marginEnd="4dp"/>
+            <View android:id="@+id/seg9" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive" android:layout_marginEnd="4dp"/>
             <View android:id="@+id/seg10" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive"/>
         </LinearLayout>
 
-        <!-- Buttons Row -->
+        <!-- Buttons Row (Centered) -->
         <LinearLayout
             android:id="@+id/layoutButtons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="48dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutProgress"
-            app:layout_constraintWidth_percent="0.8">
+            app:layout_constraintWidth_percent="0.9">
 
             <Button
                 android:id="@+id/btnPerform"
                 android:layout_width="0dp"
-                android:layout_height="56dp"
+                android:layout_height="64dp"
                 android:layout_weight="1"
-                android:layout_marginEnd="12dp"
-                android:background="@drawable/bg_button_outline"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/bg_button_primary"
+                app:backgroundTint="@null"
                 android:text="@string/btn_perform"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-black"
                 android:textAllCaps="true"
-                android:letterSpacing="0.1"/>
+                android:elevation="4dp"/>
 
+            <!-- Deduction Button -->
             <Button
                 android:id="@+id/btnDeduction"
                 android:layout_width="0dp"
-                android:layout_height="56dp"
+                android:layout_height="64dp"
                 android:layout_weight="1"
-                android:background="@drawable/bg_button_outline"
+                android:background="@drawable/bg_button_secondary_danger"
+                app:backgroundTint="@null"
                 android:text="@string/btn_deduction"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-black"
                 android:textAllCaps="true"
-                android:letterSpacing="0.1"/>
+                android:elevation="4dp"/>
         </LinearLayout>
 
-        <!-- Reset Link -->
-        <TextView
+        <!-- Reset Button (Wide & Dark) -->
+        <Button
             android:id="@+id/btnReset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
             android:layout_marginTop="24dp"
-            android:drawableStart="@drawable/ic_reset_dot"
-            android:drawablePadding="8dp"
+            android:background="@drawable/bg_button_reset"
+            app:backgroundTint="@null"
+            android:drawableStart="@drawable/ic_refresh___custom"
+            android:drawablePadding="12dp"
+            android:paddingStart="24dp"
             android:text="@string/btn_reset"
-            android:textColor="@color/text_secondary"
-            android:textSize="14sp"
-            android:padding="8dp"
+            android:textColor="#4FC3F7"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.1"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutButtons" />
+            app:layout_constraintTop_toBottomOf="@id/layoutButtons"
+            app:layout_constraintWidth_percent="0.9"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

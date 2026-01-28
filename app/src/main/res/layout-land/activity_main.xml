@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,6 +20,31 @@
         android:layout_height="match_parent"
         android:background="@color/background_overlay" />
 
+    <!-- Sound Toggle Overlay (Top Right) -->
+    <ImageButton
+        android:id="@+id/btnSoundToggle"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="top|end"
+        android:layout_margin="24dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_sound_on"
+        android:scaleType="center"
+        android:tint="@color/white" />
+
+    <!-- Title Overlay (Top Left) -->
+    <TextView
+        android:id="@+id/tvAppTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:layout_margin="24dp"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/title_main"
+        android:textColor="@color/text_primary"
+        android:textSize="20sp"
+        android:textStyle="italic" />
+
     <!-- Content - LinearLayout for Landscape -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,33 +52,13 @@
         android:orientation="horizontal"
         android:padding="24dp">
 
-        <!-- Left Section: Title, Score, Element -->
+        <!-- Left Section: Score, Element -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.2"
             android:orientation="vertical"
-            android:gravity="start">
-
-            <!-- Header -->
-            <TextView
-                android:id="@+id/tvAppTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-black"
-                android:text="@string/title_main"
-                android:textColor="@color/text_primary"
-                android:textSize="18sp"
-                android:textStyle="italic" />
-
-            <TextView
-                android:id="@+id/tvStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/status_in_progress"
-                android:textColor="@color/status_active"
-                android:textSize="11sp"
-                android:textStyle="bold" />
+            android:gravity="center">
 
             <!-- Score -->
             <TextView
@@ -61,22 +67,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.15"
                 android:text="@string/label_score"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp"
-                android:letterSpacing="0.15" />
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"/>
 
             <TextView
                 android:id="@+id/tvScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
+                android:includeFontPadding="false"
                 android:text="0"
                 android:textColor="@color/text_primary"
                 android:textSize="80sp"
-                android:includeFontPadding="false" />
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"/>
 
-            <!-- Element & Progress -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,13 +95,14 @@
 
                 <TextView
                     android:id="@+id/tvElementLabel"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-black"
                     android:text="@string/label_element_header"
-                    android:textColor="@color/text_secondary"
+                    android:textColor="#90A4AE"
                     android:textSize="12sp"
-                    android:letterSpacing="0.15" />
+                    android:letterSpacing="0.1" />
 
                 <TextView
                     android:id="@+id/tvElement"
@@ -101,7 +111,7 @@
                     android:layout_marginStart="12dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="1 / 10"
-                    android:textColor="@color/text_primary"
+                    android:textColor="#FFFFFF"
                     android:textSize="12sp" />
             </LinearLayout>
 
@@ -141,39 +151,51 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginBottom="12dp"
-                android:background="@drawable/bg_button_outline"
+                android:background="@drawable/bg_button_primary"
+                app:backgroundTint="@null"
+                android:backgroundTint="@null"
                 android:text="@string/btn_perform"
-                android:textColor="@color/text_primary"
+                android:textColor="#FFFFFF"
                 android:textSize="14sp"
+                android:fontFamily="sans-serif-black"
                 android:textAllCaps="true"
-                android:letterSpacing="0.1"/>
+                android:letterSpacing="0.1"
+                android:elevation="4dp"/>
 
             <Button
                 android:id="@+id/btnDeduction"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginBottom="12dp"
-                android:background="@drawable/bg_button_outline"
+                android:background="@drawable/bg_button_secondary_danger"
+                app:backgroundTint="@null"
+                android:backgroundTint="@null"
                 android:text="@string/btn_deduction"
-                android:textColor="@color/text_primary"
+                android:textColor="#FFFFFF"
                 android:textSize="14sp"
+                android:fontFamily="sans-serif-black"
                 android:textAllCaps="true"
+                android:letterSpacing="0.1"
+                android:elevation="4dp"/>
+
+            <Button
+                android:id="@+id/btnReset"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_button_reset"
+                app:backgroundTint="@null"
+                android:backgroundTint="@null"
+                android:drawableStart="@drawable/ic_refresh___custom"
+                android:drawablePadding="12dp"
+                android:paddingStart="24dp"
+                android:text="@string/btn_reset"
+                android:textColor="#4FC3F7"
+                android:textSize="14sp"
+                android:textStyle="bold"
                 android:letterSpacing="0.1"/>
 
-            <TextView
-                android:id="@+id/btnReset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:drawableStart="@drawable/ic_reset_dot"
-                android:drawablePadding="8dp"
-                android:text="@string/btn_reset"
-                android:textColor="@color/text_secondary"
-                android:textSize="14sp"
-                android:padding="8dp" />
-
         </LinearLayout>
-
     </LinearLayout>
 
 </FrameLayout>

@@ -7,7 +7,7 @@ enum class Zone(val pointValue: Int) {
     ADVANCED(3);
 
     companion object {
-        // Function to get Zone by its point value
+        // Get Zone by point value
         fun fromElement(element: Int): Zone {
             return when (element) {
                 in 1..3 -> BASIC

@@ -21,36 +21,41 @@ class GymnasticsViewModel : ViewModel() {
     private val _state = MutableLiveData(GymnasticsState())
     val state: LiveData<GymnasticsState> = _state
 
-    // Add points
+    // Add points by performing the next element
     fun perform() {
         val currentState = _state.value ?: return
 
-        // Return if got deducted/routine ended
+        // Return if got deducted - routine ended early
         if (currentState.hasDeducted) {
-            Log.d(TAG, "perform() blocked - routine already ended due to deduction")
+            Log.d(TAG, "perform() blocked - routine ended due to deduction")
             return
         }
 
+        // Return if routine is complete
         if (currentState.isFinished) {
             Log.d(TAG, "perform() blocked - routine already finished")
             return
         }
 
-        // Get current state
-        val zone = getCurrentZone()
+        // Calculate the element being performed (next element)
+        val elementBeingPerformed = currentState.currentElement + 1
+        
+        // Get zone for the element being performed
+        val zone = Zone.fromElement(elementBeingPerformed)
         val pointsToAdd = zone.pointValue
         val newScore = minOf(currentState.score + pointsToAdd, MAX_SCORE)
-        val newElement = currentState.currentElement + 1
-        val isNowFinished = currentState.currentElement >= MAX_ELEMENTS
+        
+        // Check if this completes the routine
+        val isNowFinished = elementBeingPerformed >= MAX_ELEMENTS
 
         // Update state
         _state.value = currentState.copy(
             score = newScore,
-            currentElement = if (isNowFinished) MAX_ELEMENTS else newElement,
+            currentElement = elementBeingPerformed,
             isFinished = isNowFinished
         )
 
-        Log.d(TAG, "perform(): +$pointsToAdd pts, score=$newScore, element=$newElement")
+        Log.d(TAG, "perform(): element=$elementBeingPerformed, zone=${zone.name}, +$pointsToAdd pts, total=$newScore, finished=$isNowFinished")
     }
 
     // Deduct points
@@ -58,8 +63,8 @@ class GymnasticsViewModel : ViewModel() {
         val currentState = _state.value ?: return
 
         // Return if in initial state
-        if (currentState.currentElement <= 1) {
-            Log.d(TAG, "deduct() blocked - complete first element first")
+        if (currentState.currentElement < 1) {
+            Log.d(TAG, "deduct() blocked - complete at least one element first")
             return
         }
 
@@ -93,6 +98,7 @@ class GymnasticsViewModel : ViewModel() {
 
     // Get zone based on current element
     fun getCurrentZone(): Zone {
-        return Zone.fromElement(_state.value?.currentElement ?: 1)
+        val element = _state.value?.currentElement ?: 0
+        return Zone.fromElement(if (element == 0) 1 else element)
     }
 }

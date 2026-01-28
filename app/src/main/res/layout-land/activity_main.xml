@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- Background Image -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_gym"
+        android:contentDescription="@string/app_name" />
+
+    <!-- Dark Overlay -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_overlay" />
+
+    <!-- Content - LinearLayout for Landscape -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="24dp">
+
+        <!-- Left Section: Title, Score, Element -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.2"
+            android:orientation="vertical"
+            android:gravity="start">
+
+            <!-- Header -->
+            <TextView
+                android:id="@+id/tvAppTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/title_main"
+                android:textColor="@color/text_primary"
+                android:textSize="18sp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/status_in_progress"
+                android:textColor="@color/status_active"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <!-- Score -->
+            <TextView
+                android:id="@+id/tvScoreLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/label_score"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:letterSpacing="0.15" />
+
+            <TextView
+                android:id="@+id/tvScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="0"
+                android:textColor="@color/text_primary"
+                android:textSize="80sp"
+                android:includeFontPadding="false" />
+
+            <!-- Element & Progress -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:id="@+id/tvElementLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/label_element_header"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp"
+                    android:letterSpacing="0.15" />
+
+                <TextView
+                    android:id="@+id/tvElement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="1 / 10"
+                    android:textColor="@color/text_primary"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- Progress Bar -->
+            <LinearLayout
+                android:id="@+id/layoutProgress"
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <View android:id="@+id/seg1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_basic" android:layout_marginEnd="2dp"/>
+                <View android:id="@+id/seg2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive" android:layout_marginEnd="2dp"/>
+                <View android:id="@+id/seg3" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive" android:layout_marginEnd="2dp"/>
+                <View android:id="@+id/seg4" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive" android:layout_marginEnd="2dp"/>
+                <View android:id="@+id/seg5" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive" android:layout_marginEnd="2dp"/>
+                <View android:id="@+id/seg6" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive" android:layout_marginEnd="2dp"/>
+                <View android:id="@+id/seg7" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive" android:layout_marginEnd="2dp"/>
+                <View android:id="@+id/seg8" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive" android:layout_marginEnd="2dp"/>
+                <View android:id="@+id/seg9" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive" android:layout_marginEnd="2dp"/>
+                <View android:id="@+id/seg10" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@color/zone_inactive"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Right Section: Buttons -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingStart="24dp">
+
+            <Button
+                android:id="@+id/btnPerform"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_button_outline"
+                android:text="@string/btn_perform"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textAllCaps="true"
+                android:letterSpacing="0.1"/>
+
+            <Button
+                android:id="@+id/btnDeduction"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_button_outline"
+                android:text="@string/btn_deduction"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textAllCaps="true"
+                android:letterSpacing="0.1"/>
+
+            <TextView
+                android:id="@+id/btnReset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:drawableStart="@drawable/ic_reset_dot"
+                android:drawablePadding="8dp"
+                android:text="@string/btn_reset"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                android:padding="8dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

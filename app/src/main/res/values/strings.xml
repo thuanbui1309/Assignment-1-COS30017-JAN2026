@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Gymnastics App</string>
+    <string name="title_main">GYMNASTICS APP</string>
+    
+    <string name="btn_perform">PERFORM</string>
+    <string name="btn_deduction">DEDUCTION</string>
+    <string name="btn_reset">RESET</string>
+    
+    <string name="label_score">SCORE</string>
+    <string name="label_element_header">ELEMENT</string>
+    <string name="label_element">%1$d / 10</string>
+    
+    <string name="status_in_progress">IN PROGRESS</string>
+    <string name="status_terminated">TERMINATED</string>
+    <string name="status_complete">SESSION ENDED</string>
+    
+    <string name="msg_routine_complete">Routine Complete!</string>
+</resources>

@@ -20,7 +20,7 @@
         android:layout_height="match_parent"
         android:background="@color/background_overlay" />
 
-    <!-- Header -->
+    <!-- Title -->
     <TextView
         android:id="@+id/tvAppTitle"
         android:layout_width="wrap_content"
@@ -34,14 +34,14 @@
         android:textSize="20sp"
         android:textStyle="italic" />
 
-    <!-- Content -->
+    <!-- Main Content -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:padding="24dp">
 
-        <!-- Left Section -->
+        <!-- Score and Progress -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -59,7 +59,7 @@
                 android:letterSpacing="0.15"
                 android:text="@string/label_score"
                 android:textColor="@color/text_secondary"
-                android:textSize="12sp"
+                android:textSize="24sp"
                 android:gravity="center"
                 android:layout_gravity="center_horizontal"/>
 
@@ -71,10 +71,11 @@
                 android:includeFontPadding="false"
                 android:text="0"
                 android:textColor="@color/text_primary"
-                android:textSize="80sp"
+                android:textSize="120sp"
                 android:gravity="center"
                 android:layout_gravity="center_horizontal"/>
 
+            <!-- Element -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -104,7 +105,7 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- Progress Bar -->
+            <!-- Progress -->
             <LinearLayout
                 android:id="@+id/layoutProgress"
                 android:layout_width="match_parent"
@@ -126,7 +127,7 @@
 
         </LinearLayout>
 
-        <!-- Right Section -->
+        <!-- Action Buttons -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -145,7 +146,8 @@
                 android:backgroundTint="@null"
                 android:text="@string/btn_perform"
                 android:textColor="#FFFFFF"
-                android:textSize="14sp"
+                android:textSize="16sp"
+                android:maxLines="1"
                 android:fontFamily="sans-serif-black"
                 android:textAllCaps="true"
                 android:letterSpacing="0.1"
@@ -161,7 +163,8 @@
                 android:backgroundTint="@null"
                 android:text="@string/btn_deduction"
                 android:textColor="#FFFFFF"
-                android:textSize="14sp"
+                android:textSize="16sp"
+                android:maxLines="1"
                 android:fontFamily="sans-serif-black"
                 android:textAllCaps="true"
                 android:letterSpacing="0.1"
@@ -180,7 +183,7 @@
                 android:paddingStart="24dp"
                 android:text="@string/btn_reset"
                 android:textColor="#4FC3F7"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:letterSpacing="0.1"/>
 

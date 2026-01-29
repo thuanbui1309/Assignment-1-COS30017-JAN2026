@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Gymnastics App</string>
-    <string name="title_main">GYMNASTICS APP</string>
+    <string name="title_main" translatable="false">GYMNASTICS APP</string>
     
     <string name="btn_perform">PERFORM</string>
-    <string name="btn_deduction">DEDUCTION</string>
+    <string name="btn_deduction">DEDUCT</string>
     <string name="btn_reset">RESET</string>
     
     <string name="label_score">SCORE</string>

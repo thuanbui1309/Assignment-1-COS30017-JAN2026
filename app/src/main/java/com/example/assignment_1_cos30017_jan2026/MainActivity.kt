@@ -4,13 +4,16 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import com.example.assignment_1_cos30017_jan2026.databinding.ActivityMainBinding
 import com.example.assignment_1_cos30017_jan2026.viewmodel.GymnasticsViewModel
 import com.example.assignment_1_cos30017_jan2026.model.Zone
+import com.example.assignment_1_cos30017_jan2026.utils.SoundManager
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: GymnasticsViewModel by viewModels()
+    private var currentDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,12 +21,28 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Observe state changes
         viewModel.state.observe(this) { state ->
-            // Update UI based on state
             binding.tvScore.text = state.score.toString()
             binding.tvElement.text = "${state.currentElement} / 10"
             updateProgressBar(state.currentElement)
             updateScoreColor(viewModel.getCurrentZone())
+
+            // Restore dialog if rotation occurred while in finished/deducted state
+            if (state.isFinished) {
+                 showCompletionDialog(state.score, isSuccess = true)
+            } else if (state.hasDeducted) {
+                 showCompletionDialog(state.score, isSuccess = false)
+            } else {
+                // Ensure dialog is dismissed if state is active (e.g. after reset)
+                currentDialog?.dismiss()
+                currentDialog = null
+            }
+        }
+
+        // Observe feedback events
+        viewModel.event.observe(this) { event ->
+            event?.let { handleFeedbackEvent(it) }
         }
 
         binding.btnPerform.setOnClickListener {
@@ -40,12 +59,77 @@ class MainActivity : AppCompatActivity() {
             Log.d("GymnasticsApp", "Reset button clicked")
             viewModel.reset()
         }
+    }
 
+    /**
+     * Handles feedback events from ViewModel
+     */
+    private fun handleFeedbackEvent(event: GymnasticsViewModel.FeedbackEvent) {
+        when (event) {
+            is GymnasticsViewModel.FeedbackEvent.PerformSuccess -> {
+                SoundManager.playPerformSound(this)
+            }
+            is GymnasticsViewModel.FeedbackEvent.Deduction -> {
+                SoundManager.playDeductionSound(this)
+            }
+            is GymnasticsViewModel.FeedbackEvent.RoutineComplete -> {
+                showCompletionDialog(event.finalScore, isSuccess = true)
+                SoundManager.playFinishSound(this)
+            }
+            is GymnasticsViewModel.FeedbackEvent.RoutineEndedEarly -> {
+                showCompletionDialog(event.finalScore, isSuccess = false)
+                SoundManager.playDeductionSound(this)
+            }
+            is GymnasticsViewModel.FeedbackEvent.Reset -> {
+                // No sound for reset
+            }
+        }
+        viewModel.eventHandled()
+    }
+
+    /**
+     * Shows completion dialog.
+     */
+    private fun showCompletionDialog(score: Int, isSuccess: Boolean) {
+        if (currentDialog?.isShowing == true) return
+
+        val dialogView = layoutInflater.inflate(R.layout.dialog_completion, null)
+        val builder = AlertDialog.Builder(this)
+        builder.setView(dialogView)
+
+        val dialog = builder.create()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        currentDialog = dialog
+
+        // Find views
+        val imgIconBg = dialogView.findViewById<android.widget.ImageView>(R.id.imgDialogIconBg)
+        val tvTitle = dialogView.findViewById<android.widget.TextView>(R.id.tvDialogTitle)
+        val tvScore = dialogView.findViewById<android.widget.TextView>(R.id.tvDialogScore)
+        val btnRestart = dialogView.findViewById<android.widget.Button>(R.id.btnDialogRestart)
+
+        // Set content
+        if (isSuccess) {
+            imgIconBg.setBackgroundResource(R.drawable.bg_circle_success)
+            tvTitle.text = "ROUTINE COMPLETE"
+        } else {
+            imgIconBg.setBackgroundResource(R.drawable.bg_circle_failure)
+            tvTitle.text = "ROUTINE ENDED"
+        }
+        
+        tvScore.text = score.toString()
+
+        btnRestart.setOnClickListener {
+            viewModel.reset()
+            dialog.dismiss()
+            currentDialog = null
+        }
+
+        dialog.setCancelable(false)
+        dialog.show()
     }
 
     /**
      * Updates the progress bar segments based on current element.
-     * Colors segments according to their zone (Basic, Intermediate, Advanced).
      */
     private fun updateProgressBar(currentElement: Int) {
         val segments = listOf(

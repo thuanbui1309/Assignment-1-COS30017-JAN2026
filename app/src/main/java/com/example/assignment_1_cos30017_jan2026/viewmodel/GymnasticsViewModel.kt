@@ -21,6 +21,22 @@ class GymnasticsViewModel : ViewModel() {
     private val _state = MutableLiveData(GymnasticsState())
     val state: LiveData<GymnasticsState> = _state
 
+    // Feedback events for UI
+    sealed class FeedbackEvent {
+        data class PerformSuccess(val points: Int, val zone: Zone) : FeedbackEvent()
+        data class Deduction(val points: Int) : FeedbackEvent()
+        data class RoutineComplete(val finalScore: Int) : FeedbackEvent()
+        data class RoutineEndedEarly(val finalScore: Int) : FeedbackEvent()
+        object Reset : FeedbackEvent()
+    }
+
+    private val _event = MutableLiveData<FeedbackEvent?>()
+    val event: LiveData<FeedbackEvent?> = _event
+
+    fun eventHandled() {
+        _event.value = null
+    }
+
     // Add points by performing the next element
     fun perform() {
         val currentState = _state.value ?: return
@@ -56,6 +72,13 @@ class GymnasticsViewModel : ViewModel() {
         )
 
         Log.d(TAG, "perform(): element=$elementBeingPerformed, zone=${zone.name}, +$pointsToAdd pts, total=$newScore, finished=$isNowFinished")
+
+        // Emit feedback event
+        _event.value = if (isNowFinished) {
+            FeedbackEvent.RoutineComplete(newScore)
+        } else {
+            FeedbackEvent.PerformSuccess(pointsToAdd, zone)
+        }
     }
 
     // Deduct points
@@ -88,12 +111,16 @@ class GymnasticsViewModel : ViewModel() {
         )
 
         Log.d(TAG, "deduct(): -$DEDUCTION_POINTS pts, score=$newScore")
+
+        // Emit feedback event
+        _event.value = FeedbackEvent.RoutineEndedEarly(newScore)
     }
 
     // Reset state
     fun reset() {
         Log.d(TAG, "reset(): Reset to initial state")
         _state.value = GymnasticsState()
+        _event.value = FeedbackEvent.Reset
     }
 
     // Get zone based on current element

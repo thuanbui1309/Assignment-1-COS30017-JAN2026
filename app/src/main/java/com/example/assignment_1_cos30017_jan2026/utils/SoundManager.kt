@@ -1,41 +1,34 @@
 package com.example.assignment_1_cos30017_jan2026.utils
 
-import android.media.AudioManager
-import android.media.ToneGenerator
+import android.content.Context
+import android.media.MediaPlayer
 
-/**
- * Utility class to handle app sound effects using ToneGenerator.
- * Designed for "Gymmer" aesthetic with efficient, distinct beeps.
- */
 object SoundManager {
-    
-    private val toneGen = ToneGenerator(AudioManager.STREAM_MUSIC, 100)
 
-    /**
-     * Short high beep for successful performance.
-     */
-    fun playPerformSound() {
-        toneGen.startTone(ToneGenerator.TONE_PROP_BEEP, 150)
+    private var mediaPlayer: MediaPlayer? = null
+
+    private fun playSound(context: Context, resId: Int) {
+        mediaPlayer?.release()
+        mediaPlayer = MediaPlayer.create(context, resId).apply {
+            setOnCompletionListener { it.release() }
+            start()
+        }
     }
 
-    /**
-     * Low buzz for deduction.
-     */
-    fun playDeductionSound() {
-        toneGen.startTone(ToneGenerator.TONE_CDMA_SOFT_ERROR_LITE, 300)
+    fun playPerformSound(context: Context) {
+        playSound(context, com.example.assignment_1_cos30017_jan2026.R.raw.sound_success)
     }
 
-    /**
-     * Distinct double-beep for routine completion.
-     */
-    fun playFinishSound() {
-        toneGen.startTone(ToneGenerator.TONE_PROP_ACK, 200)
+    fun playDeductionSound(context: Context) {
+        playSound(context, com.example.assignment_1_cos30017_jan2026.R.raw.sound_fail)
     }
 
-    /**
-     * Subtle click for reset.
-     */
-    fun playResetSound() {
-        toneGen.startTone(ToneGenerator.TONE_CDMA_KEYPAD_VOLUME_KEY_LITE, 50)
+    fun playFinishSound(context: Context) {
+        playSound(context, com.example.assignment_1_cos30017_jan2026.R.raw.sound_win)
+    }
+
+    fun release() {
+        mediaPlayer?.release()
+        mediaPlayer = null
     }
 }

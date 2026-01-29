@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog_surface"
+    android:padding="32dp">
+
+    <!-- Title Icon -->
+    <ImageView
+        android:id="@+id/imgDialogIconBg"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/bg_circle_success"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgDialogIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_trophy"
+        app:layout_constraintTop_toTopOf="@id/imgDialogIconBg"
+        app:layout_constraintBottom_toBottomOf="@id/imgDialogIconBg"
+        app:layout_constraintStart_toStartOf="@id/imgDialogIconBg"
+        app:layout_constraintEnd_toEndOf="@id/imgDialogIconBg"
+        app:tint="#FFFFFF"/>
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tvDialogTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-black"
+        android:text="ROUTINE COMPLETE"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        android:textStyle="italic"
+        android:letterSpacing="0.05"
+        android:textAllCaps="true"
+        app:layout_constraintTop_toBottomOf="@id/imgDialogIconBg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Score Card Container -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutScoreCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/bg_card_inset"
+        android:paddingVertical="32dp"
+        app:layout_constraintTop_toBottomOf="@id/tvDialogTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/tvScoreLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="FINAL SCORE"
+            android:textColor="#546E7A"
+            android:textSize="12sp"
+            android:letterSpacing="0.2"
+            android:textAllCaps="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/tvDialogScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif-black"
+            android:text="20"
+            android:textColor="#FFFFFF"
+            android:textSize="56sp"
+            android:includeFontPadding="false"
+            app:layout_constraintTop_toBottomOf="@id/tvScoreLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Action Button -->
+    <Button
+        android:id="@+id/btnDialogRestart"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/bg_button_blue_rounded"
+        app:backgroundTint="@null"
+        android:text="START NEW SESSION"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif-black"
+        android:textAllCaps="true"
+        android:letterSpacing="0.05"
+        app:layout_constraintTop_toBottomOf="@id/layoutScoreCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

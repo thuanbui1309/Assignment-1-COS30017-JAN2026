@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!-- Background Image -->
+    <!-- Background -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,45 +14,34 @@
         android:src="@drawable/bg_gym"
         android:contentDescription="@string/app_name" />
 
-    <!-- Dark Overlay -->
+    <!-- Overlay -->
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background_overlay" />
 
-    <!-- Sound Toggle Overlay (Top Right) -->
-    <ImageButton
-        android:id="@+id/btnSoundToggle"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_gravity="top|end"
-        android:layout_margin="24dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_sound_on"
-        android:scaleType="center"
-        android:tint="@color/white" />
-
-    <!-- Title Overlay (Top Left) -->
+    <!-- Header -->
     <TextView
         android:id="@+id/tvAppTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|start"
-        android:layout_margin="24dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginStart="24dp"
         android:fontFamily="sans-serif-black"
         android:text="@string/title_main"
         android:textColor="@color/text_primary"
         android:textSize="20sp"
         android:textStyle="italic" />
 
-    <!-- Content - LinearLayout for Landscape -->
+    <!-- Content -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:padding="24dp">
 
-        <!-- Left Section: Score, Element -->
+        <!-- Left Section -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -137,7 +126,7 @@
 
         </LinearLayout>
 
-        <!-- Right Section: Buttons -->
+        <!-- Right Section -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"

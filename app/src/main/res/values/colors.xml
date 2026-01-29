@@ -3,7 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     
-    <!-- Gym Style Theme -->
+    <!-- Theme -->
     <color name="background_overlay">#CC1A1A2E</color>
     <color name="text_primary">#FFFFFF</color>
     <color name="text_secondary">#90A4AE</color>

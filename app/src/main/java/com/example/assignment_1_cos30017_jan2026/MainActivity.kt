@@ -17,30 +17,33 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Observe state changes
+        // Bind ViewModel state to UI updates
         viewModel.state.observe(this) { state ->
             binding.tvScore.text = state.score.toString()
             binding.tvElement.text = "${state.currentElement} / 10"
             updateProgressBar(state.currentElement)
             updateScoreColor(viewModel.getCurrentZone())
 
-            // Restore dialog if rotation occurred while in finished/deducted state
+            // Manage button availability
+            val hasProgress = state.currentElement >= 1
+            binding.btnDeduction.isEnabled = hasProgress
+            binding.btnReset.isEnabled = hasProgress
+
+            // Handle dialog restoration for finished/deducted states
             if (state.isFinished) {
                  showCompletionDialog(state.score, isSuccess = true)
             } else if (state.hasDeducted) {
                  showCompletionDialog(state.score, isSuccess = false)
             } else {
-                // Ensure dialog is dismissed if state is active (e.g. after reset)
                 currentDialog?.dismiss()
                 currentDialog = null
             }
         }
 
-        // Observe feedback events
+        // Subscribe to events for side effects (sounds, dialogs)
         viewModel.event.observe(this) { event ->
             event?.let { handleFeedbackEvent(it) }
         }
@@ -61,9 +64,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Handles feedback events from ViewModel
-     */
+    // Process one-off feedback events from ViewModel
     private fun handleFeedbackEvent(event: GymnasticsViewModel.FeedbackEvent) {
         when (event) {
             is GymnasticsViewModel.FeedbackEvent.PerformSuccess -> {
@@ -80,34 +81,27 @@ class MainActivity : AppCompatActivity() {
                 showCompletionDialog(event.finalScore, isSuccess = false)
                 SoundManager.playDeductionSound(this)
             }
-            is GymnasticsViewModel.FeedbackEvent.Reset -> {
-                // No sound for reset
-            }
+            is GymnasticsViewModel.FeedbackEvent.Reset -> {} // No action needed
         }
         viewModel.eventHandled()
     }
 
-    /**
-     * Shows completion dialog.
-     */
+    // Display the completion or failure dialog
     private fun showCompletionDialog(score: Int, isSuccess: Boolean) {
         if (currentDialog?.isShowing == true) return
 
         val dialogView = layoutInflater.inflate(R.layout.dialog_completion, null)
-        val builder = AlertDialog.Builder(this)
-        builder.setView(dialogView)
+        val builder = AlertDialog.Builder(this).apply { setView(dialogView) }
 
         val dialog = builder.create()
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         currentDialog = dialog
 
-        // Find views
         val imgIconBg = dialogView.findViewById<android.widget.ImageView>(R.id.imgDialogIconBg)
         val tvTitle = dialogView.findViewById<android.widget.TextView>(R.id.tvDialogTitle)
         val tvScore = dialogView.findViewById<android.widget.TextView>(R.id.tvDialogScore)
         val btnRestart = dialogView.findViewById<android.widget.Button>(R.id.btnDialogRestart)
 
-        // Set content
         if (isSuccess) {
             imgIconBg.setBackgroundResource(R.drawable.bg_circle_success)
             tvTitle.text = "ROUTINE COMPLETE"
@@ -128,9 +122,7 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    /**
-     * Updates the progress bar segments based on current element.
-     */
+    // Update progress bar segment colors based on current element index
     private fun updateProgressBar(currentElement: Int) {
         val segments = listOf(
             binding.seg1, binding.seg2, binding.seg3,
@@ -150,9 +142,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Updates the score text color based on the current zone.
-     */
+    // Reflect current zone difficulty in score text color
     private fun updateScoreColor(zone: Zone) {
         val color = when (zone) {
             Zone.BASIC -> R.color.zone_basic

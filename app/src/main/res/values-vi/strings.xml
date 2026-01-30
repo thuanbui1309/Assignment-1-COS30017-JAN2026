@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Chấm Điểm TDDC</string>
+    <string name="title_main" translatable="false">GYMNASTICS APP</string>
+    
+    <string name="btn_perform">THỰC HIỆN</string>
+    <string name="btn_deduction">TRỪ ĐIỂM</string>
+    <string name="btn_reset">LÀM LẠI</string>
+    
+    <string name="label_score">ĐIỂM SỐ</string>
+    <string name="label_element_header">ĐỘNG TÁC</string>
+    <string name="label_element">%1$d / 10</string>
+    
+    <string name="status_in_progress">ĐANG THỰC HIỆN</string>
+    <string name="status_terminated">ĐÃ DỪNG</string>
+    <string name="status_complete">ĐÃ HOÀN THÀNH</string>
+    
+    <string name="msg_routine_complete">Bài thi hoàn thành!</string>
+
+    <string name="dialog_title_success">HOÀN THÀNH BÀI THI</string>
+    <string name="dialog_title_failure">DỪNG BÀI THI</string>
+    <string name="label_final_score">TỔNG ĐIỂM</string>
+    <string name="btn_new_session">BẮT ĐẦU BÀI MỚI</string>
+</resources>

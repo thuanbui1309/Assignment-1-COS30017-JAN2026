@@ -104,10 +104,10 @@ class MainActivity : AppCompatActivity() {
 
         if (isSuccess) {
             imgIconBg.setBackgroundResource(R.drawable.bg_circle_success)
-            tvTitle.text = "ROUTINE COMPLETE"
+            tvTitle.text = getString(R.string.dialog_title_success)
         } else {
             imgIconBg.setBackgroundResource(R.drawable.bg_circle_failure)
-            tvTitle.text = "ROUTINE ENDED"
+            tvTitle.text = getString(R.string.dialog_title_failure)
         }
         
         tvScore.text = score.toString()

@@ -15,4 +15,9 @@
     <string name="status_complete">SESSION ENDED</string>
     
     <string name="msg_routine_complete">Routine Complete!</string>
+    
+    <string name="dialog_title_success">ROUTINE COMPLETE</string>
+    <string name="dialog_title_failure">ROUTINE ENDED</string>
+    <string name="label_final_score">FINAL SCORE</string>
+    <string name="btn_new_session">START NEW SESSION</string>
 </resources>

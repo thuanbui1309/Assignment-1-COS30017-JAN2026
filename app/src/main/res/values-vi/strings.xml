@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Chấm Điểm TDDC</string>
-    <string name="title_main" translatable="false">GYMNASTICS APP</string>
-    
+
     <string name="btn_perform">THỰC HIỆN</string>
     <string name="btn_deduction">TRỪ ĐIỂM</string>
     <string name="btn_reset">LÀM LẠI</string>
